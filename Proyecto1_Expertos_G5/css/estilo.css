@@ -1,0 +1,259 @@
+*{
+    border: 0;
+    margin: 0;
+    padding: 0;  
+}
+
+article, figcaption, figure, footer, header, nav, section{
+    display: block;
+}
+
+body{
+    background: #0C0F1A;
+    color: #FFF;
+    font-size: 1em;
+}
+
+a{
+    color: #1084B7;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #F60;
+}
+
+img{
+    max-width: 50%;
+}
+
+figcaption{
+    border: 0.1em solid #F60;
+    border-radius: 0.5em;
+    padding: 1em;
+}
+
+form{
+    width: 100%;    
+}
+
+form div{
+    margin: 0.9em;
+}
+
+h2{
+    color: #F60;
+}
+
+h1{
+    color: #F60;
+}
+input[type="text"], textarea{
+    background: #EEE;
+    border-radius: 0.25em;
+    color: #000;
+    font-size: 1em;
+    padding: 0.25em;
+    width: 95%;
+}
+
+input[id="buscaNombre"]{
+    background: #EEE;
+    border-radius: 0.25em;
+    color: #000;
+    font-size: 1em;
+    padding: 0.25em;
+    width: 24%;
+}
+
+input [class="b"]{
+    background: #EEE;
+    border-radius: 0.25em;
+    color: #000;
+    font-size: 0.80em;
+    padding: 0.25em;
+    width: 100%;
+}
+
+
+input[type="submit"], input[type="button"]{
+    background: #1084B7;
+    color: #FFF;
+    font-size: 1.25em;
+    padding: 0.25em;
+}
+
+input[id="Eliminar"],input[id="Actualizar"] {
+    background: none;
+    color: #F60;
+    font-size: 1em;
+    padding: 0.25em;
+    width: 100%;
+}
+
+input[id="Eliminar"]:hover, input[id="Actualizar"]:hover {
+    background: none;
+    color: #1084B7;
+}
+
+input[id="buscaG"], input[id="buscaN"]{
+    background: #1084B7;
+    color: #FFF;
+    font-size: 1em;
+    padding: 0.25em;
+}
+
+input[id="agregaG"]{
+    background: #1084B7;
+    color: #FFF;
+    font-size: 1em;
+    padding: 0.25em;
+}
+
+input[id="agregaA"]{
+    background: #1084B7;
+    color: #FFF;
+    font-size: 1em;
+    padding: 0.25em;
+}
+
+input[type="submit"]:hover{
+    background: #7BBFD5;
+    color: #000;
+}
+
+label{
+    cursor: pointer;
+}
+
+legend{
+    color: #FFF;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+textarea{
+    resize: none;
+}
+header, section#contenido, footer{
+    background: #33363F;
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+}
+
+header h1, nav{
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+nav ul{
+    list-style: none;
+}
+
+nav li{
+    display: inline-block;
+    padding: 1em;
+    vertical-align: top;
+    font-size: 1.2em;
+}
+
+p{
+    font-size: 2em;
+    color: #FFF;
+    width: 52%;
+    padding: 0.50em;
+    margin: 0 auto;
+    
+}
+
+section#principal, aside{
+    background: #8D8D8D;
+    border-radius: 0.5em;
+    display: inline-block;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0.25em;
+    vertical-align: top;
+    width: 65%;
+}
+section#principal2{
+    background: #8D8D8D;
+    border-radius: 0.5em;
+    display: inline-block;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 0.25em;
+    vertical-align: top;
+    width: 97%;
+}
+
+select{
+    background: #EEE;
+    border-radius: 0.25em;
+    color: #000;
+    font-size: 1em;
+    padding: 0.25em;
+    width: 25%;
+}
+
+aside{
+    width: 30%;
+}
+
+aside img, #img-acerca img{
+    border-radius: 0.5em;
+}
+
+article#descripcion{
+    background: #1E6381;
+    max-width: 100%;
+    padding: 0.5em;
+    text-align: justify;
+}
+
+footer{
+    color: #000;
+    font-size: 0.85em;
+    padding: 0.75em 0;
+}
+
+.fade{
+    opacity: 1;
+    filter:alpha(opacity=10);
+    
+}
+
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
