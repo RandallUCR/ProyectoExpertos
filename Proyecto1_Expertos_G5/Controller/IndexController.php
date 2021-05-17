@@ -1,5 +1,12 @@
 <?php
 
+    session_start();
+
+
+    if (!isset($_SESSION['destinosRecomendados'])) {
+        $_SESSION['destinosRecomendados'] = array();
+    }
+
 class IndexController {
     public function __construct() {
         $this->view = new View();
@@ -9,8 +16,27 @@ class IndexController {
          $this->view->show("IndexView.php", null);
      } // vista index
 
-     public function destinosRecomendados(){    
-        $this->view->show("recomendacionView.php", null);
+     public function destinosRecomendados(){   
+         
+        require 'Model/IndexModel.php';
+        $principal = new IndexModel();
+
+       //obtener los datos del form de criterios de busqueda
+        $provincia = $_POST['provinciaCB'];
+        $precio = $_POST['precioCB'];
+        $tipoVisitas = $_POST['tipoVisitasCB'];
+        $TipoTurismo = $_POST['tipoTurismoCB'];
+
+        // en esta variable se va a guardar las 5 recomendaciones obtenidas a travez del algoritmo de euclides
+
+        $_SESSION['recomendaciones'] =  $principal->euclides($provincia, $precio, $tipoVisitas, $TipoTurismo);
+        
+
+
+        $data['DestinosR'] = $principal->destinos_recomendados($_SESSION['recomendaciones'][0], $_SESSION['recomendaciones'][1], $_SESSION['recomendaciones'][2], $_SESSION['recomendaciones'][3], $_SESSION['recomendaciones'][4]);
+
+
+        $this->view->show("recomendacionView.php", $data);
     } // vista index
 
     public function detallesDestino(){
