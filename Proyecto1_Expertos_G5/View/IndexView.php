@@ -68,7 +68,7 @@
 
 								<div class="row">
 								<h4>Tipo Turismo</h4>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <select id="actividadesCB" class="form-control" name="actividadesCB" style="width:200px;" required>
+                                    <select id="tipoTurismoCB" class="form-control" name="tipoTurismoCB" style="width:200px;" required>
 
                                         <option value="1">Turismo Montaña</option>
                                         <option value="2">Turismo Playa</option>
