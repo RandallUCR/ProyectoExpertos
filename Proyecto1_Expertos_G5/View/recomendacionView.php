@@ -22,178 +22,44 @@
 				<div class="container">
 					
 					<div class="row">
-						
+						<?php 
+						foreach($vars['DestinosR'] as $item)
+
+						{
+						?>
+
 						<div class="col-lg-4">
 							<form action="?controlador=Index&accion=detallesDestino" method="post">
 								<div class="single-destinations">
 									<div class="thumb">
-										<img src="img/hotels/d1.jpg" alt="">
+										<img src="<?php echo $item[2]?>" alt="" width="100%" height="35%">
 									</div>
 									<div class="details">
 										<h4 class="d-flex justify-content-between">
-											<span>Hilton Star Hotel</span>                              	
-											
+											<span><?php echo $item[1]?></span>                              	
+											<input type="hidden" id="idDestino" name="idDestino"  value="<?php echo $item[0]?>"/> <br>
 										</h4>
 
 										<ul class="package-list">
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Swimming pool</span>
-												<span>Yes</span>
-											</li>
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Gymnesium</span>
-												<span>No</span>
-											</li>
-													
-											<li class="d-flex justify-content-between align-items-center">
+														
+											<input class="genric-btn primary e-large" type="submit"  value="Ver más"/> <br><br>
 												
-											<input class="btn btn-success" type="submit"  value="Ver más" type="button"/> <br><br>
-
-												
-											</li>													
 										</ul>
 									</div>
 								</div>
 							</form>
-						</div>
-						
-						
-						<div class="col-lg-4">
-							<form action="?controlador=Index&accion=detallesDestino" method="post">
-								<div class="single-destinations">
-									<div class="thumb">
-										<img src="img/hotels/d1.jpg" alt="">
-									</div>
-									<div class="details">
-										<h4 class="d-flex justify-content-between">
-											<span>Hilton Star Hotel</span>                              	
-											
-										</h4>
 
-										<ul class="package-list">
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Swimming pool</span>
-												<span>Yes</span>
-											</li>
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Gymnesium</span>
-												<span>No</span>
-											</li>
-													
-											<li class="d-flex justify-content-between align-items-center">
-												
-											<input class="btn btn-success" type="submit"  value="Ver más" type="button"/> <br><br>
-
-												
-											</li>													
-										</ul>
-									</div>
-								</div>
-							</form>
+									
 						</div>
 							
-						<div class="col-lg-4">
-							<form action="?controlador=Index&accion=detallesDestino" method="post">
-								<div class="single-destinations">
-									<div class="thumb">
-										<img src="img/hotels/d1.jpg" alt="">
-									</div>
-									<div class="details">
-										<h4 class="d-flex justify-content-between">
-											<span>Hilton Star Hotel</span>                              	
-											
-										</h4>
+						<?php
+						}
+						?>
 
-										<ul class="package-list">
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Swimming pool</span>
-												<span>Yes</span>
-											</li>
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Gymnesium</span>
-												<span>No</span>
-											</li>
-													
-											<li class="d-flex justify-content-between align-items-center">
-												
-											<input class="btn btn-success" type="submit"  value="Ver más" type="button"/> <br><br>
-
-												
-											</li>													
-										</ul>
-									</div>
-								</div>
-							</form>
-						</div>
-
-						<div class="col-lg-4">
-							<form action="?controlador=Index&accion=detallesDestino" method="post">
-								<div class="single-destinations">
-									<div class="thumb">
-										<img src="img/hotels/d1.jpg" alt="">
-									</div>
-									<div class="details">
-										<h4 class="d-flex justify-content-between">
-											<span>Hilton Star Hotel</span>                              	
-											
-										</h4>
-
-										<ul class="package-list">
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Swimming pool</span>
-												<span>Yes</span>
-											</li>
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Gymnesium</span>
-												<span>No</span>
-											</li>
-													
-											<li class="d-flex justify-content-between align-items-center">
-												
-											<input class="btn btn-success" type="submit"  value="Ver más" type="button"/> <br><br>
-
-												
-											</li>													
-										</ul>
-									</div>
-								</div>
-							</form>
-						</div>
-
-						<div class="col-lg-4">
-							<form action="?controlador=Index&accion=detallesDestino" method="post">
-								<div class="single-destinations">
-									<div class="thumb">
-										<img src="img/hotels/d1.jpg" alt="">
-									</div>
-									<div class="details">
-										<h4 class="d-flex justify-content-between">
-											<span>Hilton Star Hotel</span>                              	
-											
-										</h4>
-
-										<ul class="package-list">
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Swimming pool</span>
-												<span>Yes</span>
-											</li>
-											<li class="d-flex justify-content-between align-items-center">
-												<span>Gymnesium</span>
-												<span>No</span>
-											</li>
-													
-											<li class="d-flex justify-content-between align-items-center">
-												
-											<input class="btn btn-success" type="submit"  value="Ver más" type="button"/> <br><br>
-
-												
-											</li>													
-										</ul>
-									</div>
-								</div>
-							</form>
-						</div>
+			
 					</div>
+									
+						
 				</div>	
 			</section>
 			<!-- End destinations Area -->
@@ -203,3 +69,4 @@
 <?php
     include_once 'View/footerView.php';
 ?>
+
