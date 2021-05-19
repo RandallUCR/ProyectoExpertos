@@ -6,6 +6,9 @@
     if (!isset($_SESSION['destinosRecomendados'])) {
         $_SESSION['destinosRecomendados'] = array();
     }
+    if (!isset($_SESSION['idDestinoRecomendado'])) {
+        $_SESSION['idDestinoRecomendado'] = array();
+    }
 
 class IndexController {
     public function __construct() {
@@ -15,7 +18,17 @@ class IndexController {
      public function mostrar(){    
          $this->view->show("IndexView.php", null);
      } // vista index
+     
+     public function mostrarFiltrado(){    
+        
+        require 'Model/IndexModel.php';
+        $principal = new IndexModel();
 
+        //obtengo resultados del formulario
+        $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
+        $this->view->show("filtradoGeneralView.php", $data);
+    } // vista index
+    
      public function destinosRecomendados(){   
          
         require 'Model/IndexModel.php';
@@ -32,10 +45,9 @@ class IndexController {
         $_SESSION['recomendaciones'] =  $principal->euclides($provincia, $precio, $tipoVisitas, $TipoTurismo);
         
 
-
+        
         $data['DestinosR'] = $principal->destinos_recomendados($_SESSION['recomendaciones'][0], $_SESSION['recomendaciones'][1], $_SESSION['recomendaciones'][2], $_SESSION['recomendaciones'][3], $_SESSION['recomendaciones'][4]);
-
-
+        $_SESSION['destinosRecomendados'] = $data['DestinosR'];
         $this->view->show("recomendacionView.php", $data);
     } // vista index
 
@@ -45,8 +57,10 @@ class IndexController {
 
         //obtengo resultados del formulario
         //$TN_id_DT = $_POST['TN_id_DT'];
-
-        $TN_id_DT='1';
+        
+        $TN_id_DT = $_POST['idDestino'];
+        $tipoTurismo = $_POST['tipoTurismo'];
+        $_SESSION['idDestinoRecomendado']= $TN_id_DT;
         //obtengo array de BD con los atributos que se necesitan
         $data['detalles'] = $principal->mostrar_detalles_destino_turistico($TN_id_DT);
         $data['Galeria_D'] = $principal->mostrar_imagenes_destino_turistico($TN_id_DT);
@@ -57,12 +71,38 @@ class IndexController {
         $data['LinkU_D'] = $data['detalles'][0][4];
         $data['LinkV_D'] = $data['detalles'][0][5];
         $data['Precio_D'] = $data['detalles'][0][6];
+        $data['tipo_estadia'] = $data['detalles'][0][7];
+
+        if($tipoTurismo == 1){//Si es de montaña
+            $this->view->show("detallesDestinoMontanaView.php", $data);
+        }else if ($tipoTurismo == 2){//Si es de playa
+            $this->view->show("detallesDestinoPlayaView.php", $data);
+        }else if($tipoTurismo == 3){//Si es cultural
+            $this->view->show("detallesDestinoCulturalView.php", $data);
+        }
+    } // vista index
+    public function mostrarDetalleTuristico(){
+        require 'Model/IndexModel.php';
+        $principal = new IndexModel();
+        
+        $TN_id_DT = $_POST['idDestino'];
+        //obtengo array de BD con los atributos que se necesitan
+        $data['detalles'] = $principal->mostrar_detalles_destino_turistico($TN_id_DT);
+        $data['Galeria_D'] = $principal->mostrar_imagenes_destino_turistico($TN_id_DT);
+
+        $data['Nombre_D'] = $data['detalles'][0][1];
+        $data['Descripcion_D'] = $data['detalles'][0][2];
+        $data['Ubicacion_D'] = $data['detalles'][0][3];
+        $data['LinkU_D'] = $data['detalles'][0][4];
+        $data['LinkV_D'] = $data['detalles'][0][5];
+        $data['Precio_D'] = $data['detalles'][0][6];
+        $data['tipo_estadia'] = $data['detalles'][0][7];
 
         
-
-
-        $this->view->show("detallesDestinoView.php", $data);
-    } // vista index
+        $this->view->show("detallesDestinoTuristicoView.php", $data);
+        
+    }
+    
 
     
 } // fin clase

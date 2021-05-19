@@ -1,7 +1,7 @@
 $(document).ready(function() {
     "use strict";
 
-
+    
     var window_width = $(window).width(),
         window_height = window.innerHeight,
         header_height = $(".default-header").height(),
@@ -395,4 +395,28 @@ $(document).ready(function() {
         $('#mc_embed_signup').find('form').ajaxChimp();
     });
 
+
+});
+
+
+
+$(document).ready(function () {
+
+    $('#example').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar registros _MENU_ por página",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registro de destinos",
+            "infoEmpty": "No hay registros disponibles",
+            "infoFiltered": "(filtrado de _MAX_ registros totales)",
+            "sSearch": "Buscar",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
 });

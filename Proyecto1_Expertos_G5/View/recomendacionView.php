@@ -38,6 +38,7 @@
 										<h4 class="d-flex justify-content-between">
 											<span><?php echo $item[1]?></span>                              	
 											<input type="hidden" id="idDestino" name="idDestino"  value="<?php echo $item[0]?>"/> <br>
+											<input type="hidden" id="tipoTurismo" name="tipoTurismo"  value="<?php echo $item[3]?>"/> <br>
 										</h4>
 
 										<ul class="package-list">
@@ -64,8 +65,6 @@
 			</section>
 			<!-- End destinations Area -->
 			
-			
-
 <?php
     include_once 'View/footerView.php';
 ?>
