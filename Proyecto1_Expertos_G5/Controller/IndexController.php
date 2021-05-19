@@ -46,7 +46,7 @@ class IndexController {
         //obtengo resultados del formulario
         //$TN_id_DT = $_POST['TN_id_DT'];
 
-        $TN_id_DT='1';
+        $TN_id_DT='30';
         //obtengo array de BD con los atributos que se necesitan
         $data['detalles'] = $principal->mostrar_detalles_destino_turistico($TN_id_DT);
         $data['Galeria_D'] = $principal->mostrar_imagenes_destino_turistico($TN_id_DT);
