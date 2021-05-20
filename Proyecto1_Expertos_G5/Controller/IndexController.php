@@ -61,6 +61,7 @@ class IndexController {
         $TN_id_DT = $_POST['idDestino'];
         $tipoTurismo = $_POST['tipoTurismo'];
         $_SESSION['idDestinoRecomendado']= $TN_id_DT;
+
         //obtengo array de BD con los atributos que se necesitan
         $data['detalles'] = $principal->mostrar_detalles_destino_turistico($TN_id_DT);
         $data['Galeria_D'] = $principal->mostrar_imagenes_destino_turistico($TN_id_DT);
