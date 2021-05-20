@@ -4,13 +4,13 @@
 ?>
     <section class="about-banner relative">
         <div class="overlay overlay-bg"></div>
-        <div class="container">				
+        <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="about-content col-lg-12">
                     <h1 class="text-white">
-                        Destinos Turisticos				
-                    </h1>	
-                </div>	
+                        Destinos Turisticos
+                    </h1>
+                </div>
             </div>
         </div>
     </section>
@@ -28,13 +28,13 @@
             </thead>
             <tbody>
                 <?php foreach($vars['destinosTuristicos'] as $item)
-					{ 
+					{
                 ?>
                     <tr>
                         <form action="?controlador=Index&accion=mostrarDetalleTuristico" method="post">
-                        <td> 
+                        <td>
                             <p><?php echo $item[1]?></p>
-                            <img class="img-fluid" width="300px" height="60%" src="<?php echo $item[7]?>"  alt="">
+                            <img class="img-fluid" width="300px" height="auto" style="max-height:200px" src="<?php echo $item[7]?>"  alt="">
                         </td>
                         <td>
                             <p>➤ <?php echo $item[2]?></p>
@@ -53,12 +53,12 @@
                         </td>
                         </form>
                     </tr>
-                <?php 
+                <?php
                     }
                 ?>
             </tbody>
         </table>
-        </div>	
+        </div>
     </section>
 
 <?php
