@@ -105,5 +105,9 @@ class IndexController {
     }
     
 
+    public function mostrarCreditos(){
+        $this->view->show("creditosView.php", null);
+    }
+
     
 } // fin clase

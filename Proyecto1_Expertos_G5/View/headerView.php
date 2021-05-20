@@ -44,7 +44,7 @@
 				        <ul class="nav-menu">
 							<li><a href="?controlador=Index&amp;accion=mostrarFiltrado">Destinos</a></li>
 							<li><a href="?controlador=Index&amp;accion=mostrar">Ingresar Criterios</a></li>
-						  	<li><a href="about.html">Créditos</a></li>
+						  	<li><a href="?controlador=Index&amp;accion=mostrarCreditos">Créditos</a></li>
 				        </ul>
 				      </nav><!-- #nav-menu-container -->					      		  
 					</div>
