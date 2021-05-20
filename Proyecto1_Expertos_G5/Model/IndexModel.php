@@ -33,6 +33,14 @@ class IndexModel {
         $consulta->closeCursor();
         return $resultado;
     }
+    public function mostrar_destinos_turisticos() {
+        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos ();");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
+    }
+    
     
     function euclides($provincia, $precio, $tipoVisitas, $TipoTurismo)
     {
@@ -62,12 +70,9 @@ class IndexModel {
             $sumatoria= (pow($datosR['TN_provincia'] - $provincia, 2)) + (pow($datosR['TF_precio'] - $precio , 2)) + (pow($datosR['TN_tipo_visitas'] - $tipoVisitas, 2)) + (pow($datosR['TN_tipo_turismo'] - $TipoTurismo, 2)); 
             $distanciaAux=sqrt($sumatoria);
             //*******************************************************
-            print_r('******************sumatoria');
-            print_r($distanciaAux );
             //if para comparar cual registro contiene una distancia menor de acuerdo a los datos ingresados y se ordena de mas a menos parecidas
 
             if ($distanciaAux < $resultado1) {
-                print_r('entre if 1');
                 $resultado5 = $resultado4;
                 $resultado4 = $resultado3;
                 $resultado3 = $resultado2;
@@ -83,7 +88,6 @@ class IndexModel {
 
 
             } else if ($distanciaAux < $resultado2) {
-                print_r('entre if 2');
                 $resultado5 = $resultado4;
                 $resultado4 = $resultado3;
                 $resultado3 = $resultado2;
@@ -98,7 +102,6 @@ class IndexModel {
 
 
             } else if ($distanciaAux < $resultado3) {
-                print_r('entre if 3');
                 $resultado5 = $resultado4;
                 $resultado4 = $resultado3;
                 $resultado3 = $distanciaAux;
@@ -110,7 +113,6 @@ class IndexModel {
                 
 
             } else if ($distanciaAux < $resultado4) {
-                print_r('entre if 4');
                 $resultado5 = $resultado4;
                 $resultado4 = $distanciaAux;
 
@@ -119,7 +121,6 @@ class IndexModel {
                 
 
             } else if ($distanciaAux < $resultado5) {
-                print_r("entre if 5");
                 $resultado5 = $distanciaAux;
 
                 $destino5 = $datosR['TN_id_DT'];

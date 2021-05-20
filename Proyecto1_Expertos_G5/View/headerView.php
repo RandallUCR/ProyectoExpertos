@@ -16,6 +16,7 @@
 		<!-- Site Title -->
 		<title>Destinos Turisticos</title>
 
+		<link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet"> 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
 			<!--
 			CSS
@@ -41,9 +42,9 @@
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
-				          <li><a href="?controlador=Index&amp;accion=mostrar">Ingresar Criterios</a></li>
-						  <li><a href="about.html">Créditos</a></li>
-				          <li><a href="about.html">Iniciar Sesion</a></li>
+							<li><a href="?controlador=Index&amp;accion=mostrarFiltrado">Destinos</a></li>
+							<li><a href="?controlador=Index&amp;accion=mostrar">Ingresar Criterios</a></li>
+						  	<li><a href="about.html">Créditos</a></li>
 				        </ul>
 				      </nav><!-- #nav-menu-container -->					      		  
 					</div>
