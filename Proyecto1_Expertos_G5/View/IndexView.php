@@ -9,9 +9,6 @@
 					<div class="row fullscreen align-items-center justify-content-between">
 						<div class="col-lg-5 col-md-6 banner-left">
 							<h1 class="text-white">Criterios de Búsqueda</h1>
-							<p class="text-white">
-								If you are looking at blank cassettes on the web, you may be very confused at the difference in price. You may see some for as low as $.17 each.
-							</p>
 						</div>
 						<div class="col-lg-5 col-md-6 banner-right" style="margin-top: 105px" >
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -40,7 +37,6 @@
                                     </select>
 
 								</div><br>
-								
 								<div class="row">
 								<h4>Precio</h4>&nbsp;&nbsp;&nbsp;&nbsp;
 
