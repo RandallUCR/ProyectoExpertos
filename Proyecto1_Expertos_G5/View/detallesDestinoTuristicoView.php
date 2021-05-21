@@ -2,7 +2,19 @@
     include_once 'View/headerView.php';
 ?>
 
+	<script>
+		//var video = document.getElementById("myvideo");
+		 function ytplayer() {
+			$(".modal iframe").attr("src", $(".modal iframe").attr(
+			"src"));
+		}
+			/*Function shuts down video when dismiss button is toggled*/
+			$(".close").click(function() {
+			$("#myModal").stop(this);
+			ytplayer();
+			});
 
+	</script>
 	<section class="about-banner relative">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
@@ -52,7 +64,7 @@
 							<?php echo $vars['Ubicacion_D'] ?>
 				</p>
 				<div data-aos="fade-up" class="aos-init aos-animate">
-					<iframe src="<?php echo $vars['LinkU_D']?>" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+					<iframe  src="<?php echo $vars['LinkU_D']?>" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 				</div>
 
 			</div>
@@ -74,7 +86,7 @@
 
 			<div class="modal-header">
 				<h3 class="modal-title" style="color: #FFFFFF">Galería</h3>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close" onclick="ytplayer()" data-dismiss="modal">&times;</button>
 			</div>
 
 
@@ -97,17 +109,17 @@
 				<!-- End hot-deal Area -->
 
 				<center>
-
 				<div class="col-sm-6" style="margin-top:20px;">
-					<iframe width="100%" height="250" src="<?php echo $vars['LinkV_D']?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<iframe id="myvideo" width="100%" height="250" src="<?php echo $vars['LinkV_D']?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 				</div>
 				</center>
 
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="ytplayer()">Cerrar</button>
 			</div>
+
 		</div>
 	</div>
 </div>

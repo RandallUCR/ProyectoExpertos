@@ -2,7 +2,20 @@
     include_once 'View/headerView.php';
 ?>
 
+	<script>
+		//var video = document.getElementById("myvideo");
+		 function ytplayer() {
+			$(".modal iframe").attr("src", $(".modal iframe").attr(
+			"src"));
+		}
+			/*Function shuts down video when dismiss button is toggled*/
+			$(".close").click(function() {
+			$("#myModal").stop(this);
+			ytplayer();
+			});
 
+	</script>
+	
 	<section class="about-banner relative">
 		<div class="overlay overlay-bg"></div>
 		<div class="container">
@@ -74,7 +87,7 @@
 
 			<div class="modal-header">
 				<h3 class="modal-title" style="color: #FFFFFF">Galería</h3>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<button type="button" class="close" onclick="ytplayer()" data-dismiss="modal">&times;</button>
 			</div>
 
 
@@ -106,7 +119,7 @@
 			</div>
 
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-default"  onclick="ytplayer()" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
