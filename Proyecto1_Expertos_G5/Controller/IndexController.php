@@ -2,15 +2,15 @@
 
     session_start();
 
-
     if (!isset($_SESSION['destinosRecomendados'])) {
         $_SESSION['destinosRecomendados'] = array();
     }
     if (!isset($_SESSION['idDestinoRecomendado'])) {
-        $_SESSION['idDestinoRecomendado'] = array();
+        $_SESSION['idDestinoRecomendado'] = 0;
     }
 
 class IndexController {
+    
     public function __construct() {
         $this->view = new View();
     } // constructor
@@ -42,11 +42,11 @@ class IndexController {
 
         // en esta variable se va a guardar las 5 recomendaciones obtenidas a travez del algoritmo de euclides
 
-        $_SESSION['recomendaciones'] =  $principal->euclides($provincia, $precio, $tipoVisitas, $TipoTurismo);
+        $data['recomendaciones'] =  $principal->euclides($provincia, $precio, $tipoVisitas, $TipoTurismo);
         
 
         
-        $data['DestinosR'] = $principal->destinos_recomendados($_SESSION['recomendaciones'][0], $_SESSION['recomendaciones'][1], $_SESSION['recomendaciones'][2], $_SESSION['recomendaciones'][3], $_SESSION['recomendaciones'][4]);
+        $data['DestinosR'] = $principal->destinos_recomendados($data['recomendaciones'][0], $data['recomendaciones'][1], $data['recomendaciones'][2], $data['recomendaciones'][3], $data['recomendaciones'][4]);
         $_SESSION['destinosRecomendados'] = $data['DestinosR'];
         $this->view->show("recomendacionView.php", $data);
     } // vista index
@@ -111,3 +111,4 @@ class IndexController {
 
     
 } // fin clase
+?>
