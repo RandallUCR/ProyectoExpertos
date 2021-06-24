@@ -405,11 +405,26 @@ $(document).ready(function () {
     $('#example').DataTable({
         "language": {
             "lengthMenu": "Mostrar registros _MENU_ por página",
-            "zeroRecords": "No se encontraron resultados",
+            "zeroRecords": "Digite un dato correcto",
             "info": "Mostrando registro de destinos",
             "infoEmpty": "No hay registros disponibles",
             "infoFiltered": "(filtrado de _MAX_ registros totales)",
             "sSearch": "Buscar",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
+    $('#example2').DataTable({
+        "language": {
+            "lengthMenu": "Mostrar registros _MENU_ por página",
+            "zeroRecords": "Digite un dato correcto",
+            "info": "Mostrando registro de destinos",
+            "infoEmpty": "No hay registros disponibles",
             "oPaginate": {
                 "sFirst": "Primero",
                 "sLast": "Último",
