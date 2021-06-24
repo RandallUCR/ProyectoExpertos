@@ -19,6 +19,26 @@ class IndexController {
          $this->view->show("IndexView.php", null);
      } // vista index
      
+     public function mostrarFiltradoCategorias(){
+        require 'Model/IndexModel.php';
+        $principal = new IndexModel();
+
+        //obtengo resultados del formulario
+        $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
+        $this->view->show("filtradoCategoriaView.php", $data); 
+     }
+     public function destinosCategoria(){
+         require 'Model/IndexModel.php';
+         $principal = new IndexModel();
+
+         //obtener los datos del form de criterios de busqueda
+        $idCategoria = $_POST['tipoCategoria'];
+
+        //obtener destinos segun su categoria
+        $data['destinosTuristicos']=$principal->mostrar_destinos_categorias($idCategoria);
+        $this->view->show("filtradoCategoriaView.php", $data); 
+     }
+
      public function mostrarFiltrado(){    
         
         require 'Model/IndexModel.php';
@@ -35,14 +55,14 @@ class IndexController {
         $principal = new IndexModel();
 
        //obtener los datos del form de criterios de busqueda
-        $provincia = $_POST['provinciaCB'];
+        $tipoTurista = $_POST['tipoTuristaCB'];
         $precio = $_POST['precioCB'];
         $tipoVisitas = $_POST['tipoVisitasCB'];
         $TipoTurismo = $_POST['tipoTurismoCB'];
 
         // en esta variable se va a guardar las 5 recomendaciones obtenidas a travez del algoritmo de euclides
 
-        $data['recomendaciones'] =  $principal->euclides($provincia, $precio, $tipoVisitas, $TipoTurismo);
+        $data['recomendaciones'] =  $principal->euclides($tipoTurista, $precio, $tipoVisitas, $TipoTurismo);
         
 
         
@@ -82,6 +102,7 @@ class IndexController {
             $this->view->show("detallesDestinoCulturalView.php", $data);
         }
     } // vista index
+
     public function mostrarDetalleTuristico(){
         require 'Model/IndexModel.php';
         $principal = new IndexModel();

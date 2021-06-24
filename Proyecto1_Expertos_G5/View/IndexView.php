@@ -8,7 +8,7 @@
 				<div class="container">
 					<div class="row fullscreen align-items-center justify-content-between">
 						<div class="col-lg-5 col-md-6 banner-left">
-							<h1 class="text-white">Criterios de Búsqueda</h1>
+							<h2 class="text-white">En este sitio te ofrecemos distintas recomendaciones de destinos turísticos según tus criterios</h2>
 						</div>
 						<div class="col-lg-5 col-md-6 banner-right" style="margin-top: 105px" >
 							<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -22,17 +22,13 @@
 								<form class="form-wrap" action="?controlador=Index&accion=destinosRecomendados" method="post">
 
 								<div class="row">
-								<h4>Provincia</h4>&nbsp;&nbsp;&nbsp;&nbsp;
+								<h4>Tipo Turista</h4>&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <select id="provinciaCB" class="form-control" name="provinciaCB" style="width:200px;" required>
+                                    <select id="tipoTuristaCB" class="form-control" name="tipoTuristaCB" style="width:200px;" required>
 
-                                        <option value="1">San José</option>
-                                        <option value="2">Cartago</option>
-                                        <option value="3">Heredia</option>
-										<option value="4">Guanacaste</option>
-                                        <option value="5">Limón</option>
-                                        <option value="6">Puntarenas</option>
-										<option value="7">Alajuela</option>
+                                        <option value="1">Niños</option>
+                                        <option value="2">Adultos</option>
+                                        <option value="3">Todo Público</option>
 
                                     </select>
 
