@@ -42,7 +42,7 @@
 				      </div>
 				      <nav id="nav-menu-container">
 				        <ul class="nav-menu">
-							<li><a href="?controlador=Index&amp;accion=mostrarFiltrado">Destinos</a></li>
+							<li><a href="?controlador=Index&amp;accion=mostrarFiltradoDestinos">Destinos</a></li>
 							<li><a href="?controlador=Index&amp;accion=mostrar">Ingresar Criterios</a></li>
 						  	<li><a href="?controlador=Index&amp;accion=mostrarCreditos">Créditos</a></li>
 				        </ul>

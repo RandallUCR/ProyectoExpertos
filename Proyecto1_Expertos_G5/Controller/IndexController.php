@@ -10,17 +10,15 @@
     }
 
 class IndexController {
-    
     public function __construct() {
         $this->view = new View();
     } // constructor
     
-     public function mostrar(){    
-         $this->view->show("IndexView.php", null);
-     } // vista index
-     
-     public function mostrarFiltrado(){    
-        
+    public function mostrar(){
+        $this->view->show("IndexView.php", null);
+    } // vista index
+    
+    public function mostrarFiltrado(){
         require 'Model/IndexModel.php';
         $principal = new IndexModel();
 
@@ -28,8 +26,12 @@ class IndexController {
         $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
         $this->view->show("filtradoGeneralView.php", $data);
     } // vista index
+
+    public function mostrarFiltradoDestinos(){
+        $this->view->show("listaCriteriosDestinosView.php", null);
+    }
     
-     public function destinosRecomendados(){   
+    public function destinosRecomendados(){   
          
         require 'Model/IndexModel.php';
         $principal = new IndexModel();
@@ -82,6 +84,7 @@ class IndexController {
             $this->view->show("detallesDestinoCulturalView.php", $data);
         }
     } // vista index
+
     public function mostrarDetalleTuristico(){
         require 'Model/IndexModel.php';
         $principal = new IndexModel();

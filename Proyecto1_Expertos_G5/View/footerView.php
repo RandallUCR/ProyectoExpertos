@@ -11,7 +11,7 @@
 					<div class="row">
 						<div class="col-lg-3  col-md-6 col-sm-6">
 							<div class="single-footer-widget">
-								<h7>Fauricio Chavez Hernández</h7>
+								<h7>Faubricio Chaves Hernández</h7>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-6">

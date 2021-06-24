@@ -33,6 +33,7 @@ class IndexModel {
         $consulta->closeCursor();
         return $resultado;
     }
+    
     public function mostrar_destinos_turisticos() {
         $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos ();");
         $consulta->execute();
