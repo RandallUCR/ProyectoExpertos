@@ -15,16 +15,14 @@
         </div>
     </section>
     <section class="destinations-area section-gap">
-        <div>
-            
-        </div>
+        <div></div>
         <div class="container">
             <div class="tab-content" id="myTabContent" >
                     <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
                     <form class="form-wrap" action="?controlador=Index&accion=destinosCategoria" method="post">
 
                     <div class="row">
-                    <h4>Selecciona la categoria</h4>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h4>Seleccione la categoria</h4>&nbsp;&nbsp;&nbsp;&nbsp;
 
                         <select id="tipoCategoria" class="form-control" name="tipoCategoria" style="width:200px;" required>
 
