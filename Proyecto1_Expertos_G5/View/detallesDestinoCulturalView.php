@@ -49,7 +49,8 @@
 				</div>
 
 				<div class="col-lg-3" style="margin-left:50px;">
-					<h1 style="color: #CF6922">Galería</h1><br>
+					<h1 style="color: #CF6922">Galería</h1>
+					<h6 style="color: #CF6922">Haz click en la imagen para ver más imagenes y un video del destino</h6>
 					<a data-toggle="modal" data-target="#myModal">
 						<div class="single-gallery-image" style="background: url(img/picture.png);"></div>
 					</a>

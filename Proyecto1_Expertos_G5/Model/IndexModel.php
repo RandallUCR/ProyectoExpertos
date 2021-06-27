@@ -42,8 +42,15 @@ class IndexModel {
         return $resultado;
     }
     
+    public function mostrar_destinos_categorias($idCategoria) {
+        $consulta = $this->db->prepare("CALL sp_obtener_destinos_categorias ('$idCategoria');");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
+    }
     
-    function euclides($provincia, $precio, $tipoVisitas, $TipoTurismo)
+    function euclides($tipoTurista, $precio, $tipoVisitas, $TipoTurismo)
     {
 
 
@@ -68,7 +75,7 @@ class IndexModel {
             $sumatoria = 0;
 
              //***************Algoritmo de Euclides******************
-            $sumatoria= (pow($datosR['TN_provincia'] - $provincia, 2)) + (pow($datosR['TF_precio'] - $precio , 2)) + (pow($datosR['TN_tipo_visitas'] - $tipoVisitas, 2)) + (pow($datosR['TN_tipo_turismo'] - $TipoTurismo, 2)); 
+            $sumatoria= (pow($datosR['TN_tipo_turista'] - $tipoTurista, 2)) + (pow($datosR['TF_precio'] - $precio , 2)) + (pow($datosR['TN_tipo_visitas'] - $tipoVisitas, 2)) + (pow($datosR['TN_tipo_turismo'] - $TipoTurismo, 2)); 
             $distanciaAux=sqrt($sumatoria);
             //*******************************************************
             //if para comparar cual registro contiene una distancia menor de acuerdo a los datos ingresados y se ordena de mas a menos parecidas
