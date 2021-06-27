@@ -47,8 +47,7 @@
 								<span class="caret"></span></a>
 								<ul class="dropdown-menu">
 									<li><a href="?controlador=Index&amp;accion=mostrarFiltradoCategorias">Categoría de destinos</a></li>
-									<li><a href="?controlador=Index&amp;accion=mostrarFiltrado">Destinos Turísticos</a></li>    
-									
+									<li><a href="?controlador=Index&amp;accion=mostrarFiltrado">Destinos Turísticos</a></li>
 								</ul>
 							</li>
 							<li><a href="?controlador=Index&amp;accion=mostrar">Ingresar Criterios</a></li>
