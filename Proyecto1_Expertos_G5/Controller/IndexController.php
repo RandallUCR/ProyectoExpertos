@@ -13,17 +13,17 @@
         public function __construct() {
             $this->view = new View();
         } // constructor
-        
+
         public function mostrar(){
             $this->view->show("IndexView.php", null);
         } // vista index
-        
+
         public function mostrarFiltradoCategorias(){
             require 'Model/IndexModel.php';
             $principal = new IndexModel();
             //obtengo resultados del formulario
             $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
-            $this->view->show("filtradoCategoriaView.php", $data); 
+            $this->view->show("filtradoCategoriaView.php", $data);
         }
 
         public function destinosCategoria(){
@@ -33,7 +33,7 @@
             $idCategoria = $_POST['tipoCategoria'];
             //obtener destinos segun su categoria
             $data['destinosTuristicos']=$principal->mostrar_destinos_categorias($idCategoria);
-            $this->view->show("filtradoCategoriaView.php", $data); 
+            $this->view->show("filtradoCategoriaView.php", $data);
         }
 
         public function mostrarFiltrado(){
@@ -47,20 +47,19 @@
         public function destinosFiltrado(){
             require 'Model/IndexModel.php';
             $principal = new IndexModel();
-            
+
             //datos desde el form por POST
             $tipoTurista = $_POST['tipoTurista'];
             $tipoPrecio = $_POST['tipoPrecio'];
             $provincia = $_POST['provincia'];
 
             //obtengo resultados del formulario
-            print_r($principal->bayes($tipoTurista, $tipoPrecio, $provincia));
-            $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
+            $data['destinosTuristicos']=array_slice($principal->bayes($tipoTurista, $tipoPrecio, $provincia),0,5);
             $this->view->show("filtradoGeneralView.php", $data);
         } // vista index
-        
-        public function destinosRecomendados(){   
-            
+
+        public function destinosRecomendados(){
+
             require 'Model/IndexModel.php';
             $principal = new IndexModel();
             //obtener los datos del form de criterios de busqueda
@@ -82,7 +81,7 @@
 
             //obtengo resultados del formulario
             //$TN_id_DT = $_POST['TN_id_DT'];
-            
+
             $TN_id_DT = $_POST['idDestino'];
             $tipoTurismo = $_POST['tipoTurismo'];
             $_SESSION['idDestinoRecomendado']= $TN_id_DT;
@@ -111,7 +110,7 @@
         public function mostrarDetalleTuristico(){
             require 'Model/IndexModel.php';
             $principal = new IndexModel();
-            
+
             $TN_id_DT = $_POST['idDestino'];
             //obtengo array de BD con los atributos que se necesitan
             $data['detalles'] = $principal->mostrar_detalles_destino_turistico($TN_id_DT);
@@ -125,16 +124,16 @@
             $data['Precio_D'] = $data['detalles'][0][6];
             $data['tipo_estadia'] = $data['detalles'][0][7];
 
-            
+
             $this->view->show("detallesDestinoTuristicoView.php", $data);
-            
+
         }
-        
+
 
         public function mostrarCreditos(){
             $this->view->show("creditosView.php", null);
         }
 
-        
+
     } // fin clase
 ?>
