@@ -54,6 +54,7 @@
             $provincia = $_POST['provincia'];
 
             //obtengo resultados del formulario
+            print_r($principal->bayes($tipoTurista, $tipoPrecio, $provincia));
             $data['destinosTuristicos']=$principal->mostrar_destinos_turisticos();
             $this->view->show("filtradoGeneralView.php", $data);
         } // vista index
