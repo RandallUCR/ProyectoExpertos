@@ -33,7 +33,7 @@ class IndexModel {
         $consulta->closeCursor();
         return $resultado;
     }
-    
+
     public function mostrar_destinos_turisticos() {
         $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos ();");
         $consulta->execute();
@@ -41,7 +41,15 @@ class IndexModel {
         $consulta->closeCursor();
         return $resultado;
     }
-    
+
+    public function mostrar_destinos_turisticos_by_turismo($tipo) {
+        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos_by_turismo(".$tipo.");");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        $consulta->closeCursor();
+        return $resultado;
+    }
+
     public function mostrar_destinos_categorias($idCategoria) {
         $consulta = $this->db->prepare("CALL sp_obtener_destinos_categorias ('$idCategoria');");
         $consulta->execute();
@@ -49,7 +57,7 @@ class IndexModel {
         $consulta->closeCursor();
         return $resultado;
     }
-    
+
     function euclides($tipoTurista, $precio, $tipoVisitas, $TipoTurismo){
         // se realizan 5 variables con una distacia alta y se van a actualizar con las distancias calculadas
         $resultado1 = 10000;
@@ -71,7 +79,7 @@ class IndexModel {
             $sumatoria = 0;
 
             //***************Algoritmo de Euclides******************
-            $sumatoria= (pow($datosR['TN_tipo_turista'] - $tipoTurista, 2)) + (pow($datosR['TF_precio'] - $precio , 2)) + (pow($datosR['TN_tipo_visitas'] - $tipoVisitas, 2)) + (pow($datosR['TN_tipo_turismo'] - $TipoTurismo, 2)); 
+            $sumatoria= (pow($datosR['TN_tipo_turista'] - $tipoTurista, 2)) + (pow($datosR['TF_precio'] - $precio , 2)) + (pow($datosR['TN_tipo_visitas'] - $tipoVisitas, 2)) + (pow($datosR['TN_tipo_turismo'] - $TipoTurismo, 2));
             $distanciaAux=sqrt($sumatoria);
             //*******************************************************
             //if para comparar cual registro contiene una distancia menor de acuerdo a los datos ingresados y se ordena de mas a menos parecidas
@@ -137,10 +145,11 @@ class IndexModel {
         return $resultado;
     }
 
+    //Se divide bayes en dos, en primera instancia mediante bayes se obtiene el tipo de turismo mas recomandado para la persona (Montana, playa o cultural)
     public function bayes($tipoTurista, $tipoPrecio, $provincia){
         //cantidad de características
         $m = 3;
-        
+
         //contar cantidad de elementos diferentes por característica(turista, precio, provincia)
         $qTipoTurista = 3;
         $qTipoPrecio = 3;
@@ -148,7 +157,7 @@ class IndexModel {
 
         //probabilidades de los elementos (1/qCaracteristica)
         $probsCarac = array(1/$qTipoTurista, 1/$qTipoPrecio, 1/$qProvincia);
-    
+
         //cantidad de elementos por clase (1 = Turismo Montaña , 2 = Turismo Playa , 3 = Turismo Cultural)
         $tMontanna = $this->cantidad_tipo_turismo(1);
         $tPlaya = $this->cantidad_tipo_turismo(2);
@@ -200,11 +209,89 @@ class IndexModel {
 
         //obtenemos los productos
         $productos = [0,0,0];
+        $classaux = [1,2,3];
+
         for($i = 0; $i < 3; $i++ ){
             $productos[$i] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2];
         }
 
-        print_r($productos);
+        $resultadoUno = $this->ordenar($productos, $classaux);
+        return $this->bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$resultadoUno[0]);
+    }
+
+    //Srgunda instancia de Bayes, aqui se repite el procedimiento pero esta vez se evaluan los destinos mas recomendados segun los criterios_destinos
+    //de la persona y tomando en cuenta el tipo de turismo sacado del paso anterior bayes()
+    public function bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$tipo_turismo){
+        $principal = $this->mostrar_destinos_turisticos_by_turismo($tipo_turismo);
+
+        $m = 3;
+        //contar cantidad de elementos diferentes por característica(turista, precio, provincia)
+        $qTipoTurista = 3;
+        $qTipoPrecio = 3;
+        $qProvincia = 7;
+
+        $probsCarac = array(1/$qTipoTurista, 1/$qTipoPrecio, 1/$qProvincia);
+
+        $totalClases = count($principal);
+        //probabilidad de elementos por clase (clase/total)
+        $pClases = 1/$totalClases;
+
+        $matriz = [];
+        for($i = 0; $i < $totalClases; $i++){
+            for($x = 0; $x < 3; $x++){
+                $matriz[$i][$x] = 0;
+            }
+        }
+
+        for($i = 0; $i < $totalClases; $i++){
+            foreach ($principal as $item) {
+                    if($item[8] == $tipoTurista){
+                        $matriz[$i][0]++;
+                    }
+                    if($item[9] == $tipoPrecio){
+                        $matriz[$i][1]++;
+                    }
+                    if($item[10] == $provincia){
+                        $matriz[$i][2]++;
+                    }
+            }
+        }
+
+        for($i = 0; $i < $totalClases; $i++){
+            for($x = 0; $x < 3; $x++){
+                $matriz[$i][$x] = ($matriz[$i][$x] + $m * $probsCarac[$x]) / (1 + $m);
+            }
+        }
+
+        $productos = array();
+
+        for($i = 0; $i < $totalClases; $i++ ){
+            $productos[] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2];
+        }
+
+        return $this->ordenar($productos, $principal);
+    }
+
+//Metodo burbuja de ordenamiento
+    public function ordenar($array1, $array2){
+      do{
+  $swapped = false;
+  for( $i = 0, $c = count( $array1 ) - 1; $i < $c; $i++ )
+  {
+    if( $array1[$i] < $array1[$i + 1] )
+    {
+      list( $array1[$i + 1], $array1[$i] ) =
+          array( $array1[$i], $array1[$i + 1] );
+
+          list( $array2[$i + 1], $array2[$i] ) =
+              array( $array2[$i], $array2[$i + 1] );
+      $swapped = true;
+    }
+  }
+}
+while( $swapped );
+
+  return $array2;
     }
 
     public function cantidad_tipo_turismo($tipo) {
