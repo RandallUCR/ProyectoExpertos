@@ -29,9 +29,10 @@
                         <select id="tipoCategoria" class="form-control" name="tipoCategoria" style="width:200px;" required>
 
                             
-                            <option value="2">Estadía en playas</option>
-                            <option value="1">Senderos en la naturaleza</option>
-                            <option value="3">Cultura general</option>
+                            <option value="1">Museos</option>
+                            <option value="2">Hoteles</option>
+                            <option value="3">Senderos</option>
+                            <option value="4">Parques Nacionales</option>
 
                         </select>
 
