@@ -217,8 +217,6 @@ class IndexModel {
         }
 
         $resultadoUno = $this->ordenar($productos, $classaux);
-        //print_r($productos);
-        //print_r($resultadoUno);
         return $this->bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$resultadoUno[0]);
     }
 
@@ -240,39 +238,51 @@ class IndexModel {
         $pClases = 1/$totalClases;
 
         $matriz = [];
-        for($i = 0; $i < $totalClases; $i++){
+        $sum = 0;
+        foreach ($principal as $item) {
+            if($item['tn_provincia'] == $provincia){
+                $sum ++;
+            }
+        }
+        
+        for($i = 0; $i < $sum; $i++){
             for($x = 0; $x < 3; $x++){
                 $matriz[$i][$x] = 0;
             }
         }
 
-        for($i = 0; $i < $totalClases; $i++){
-            foreach ($principal as $item) {
+        //for($i = 0; $i < $totalClases; $i++){
+        $nuevos = [];
+        $i = 0;
+        foreach ($principal as $item) {
+            if($item[10] == $provincia){
                 if($item[8] == $tipoTurista){
                     $matriz[$i][0]++;
                 }
                 if($item[9] == $tipoPrecio){
                     $matriz[$i][1]++;
                 }
-                if($item[10] == $provincia){
-                    $matriz[$i][2]++;
-                }
+                $matriz[$i][2]++; 
+                $nuevos[$i] = $item;
+                $i++;
             }
         }
-
-        for($i = 0; $i < $totalClases; $i++){
+            //print_r($nuevos);
+        //}
+        
+        for($i = 0; $i < $sum; $i++){
             for($x = 0; $x < 3; $x++){
-                $matriz[$i][$x] = ($matriz[$i][$x] + $m * $probsCarac[$x]) / (1 + $m);
+                $matriz[$i][$x] = ($matriz[$i][$x] + $m * $probsCarac[$x]) / ($totalClases + $m);
             }
         }
 
         $productos = array();
 
-        for($i = 0; $i < $totalClases; $i++ ){
-            $productos[] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2];
+        for($i = 0; $i < $sum; $i++ ){
+            $productos[] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2] * $pClases;
         }
 
-        return $this->ordenar($productos, $principal);
+        return $this->ordenar($productos, $nuevos);
     }
 
     //Metodo burbuja de ordenamiento
