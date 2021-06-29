@@ -54,7 +54,7 @@
             $provincia = $_POST['provincia'];
 
             //obtengo resultados del formulario
-            $data['destinosTuristicos']=array_slice($principal->bayes($tipoTurista, $tipoPrecio, $provincia),0,5);
+            $data['destinosTuristicos']=array_slice($principal->bayes($tipoTurista, $tipoPrecio, $provincia),0,6);
             $this->view->show("filtradoGeneralView.php", $data);
         } // vista index
 
