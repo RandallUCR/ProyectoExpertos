@@ -42,8 +42,8 @@ class IndexModel {
         return $resultado;
     }
 
-    public function mostrar_destinos_turisticos_by_turismo($tipo, $provincia) {
-        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos_by_turismo(".$tipo.", ".$provincia.");");
+    public function mostrar_destinos_turisticos_by_turismo($tipo) {
+        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos_by_turismo(".$tipo.");");
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         $consulta->closeCursor();
@@ -223,13 +223,13 @@ class IndexModel {
     //Srgunda instancia de Bayes, aqui se repite el procedimiento pero esta vez se evaluan los destinos mas recomendados segun los criterios_destinos
     //de la persona y tomando en cuenta el tipo de turismo sacado del paso anterior bayes()
     public function bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$tipo_turismo){
-        $principal = $this->mostrar_destinos_turisticos_by_turismo($tipo_turismo, $provincia);
-        //echo $tipo_turismo . '|';
+        //se cargan los destinos del tipo de destino dado por bayes
+        $principal = $this->mostrar_destinos_turisticos_by_turismo($tipo_turismo);
         $m = 3;
         //contar cantidad de elementos diferentes por característica(turista, precio, provincia)
         $qTipoTurista = 3;
         $qTipoPrecio = 3;
-        $qProvincia = 7;
+        $qProvincia = 1; //solo se usa una provincia
 
         $probsCarac = array(1/$qTipoTurista, 1/$qTipoPrecio, 1/$qProvincia);
 
@@ -238,23 +238,26 @@ class IndexModel {
         $pClases = 1/$totalClases;
 
         $matriz = [];
+        //contamos la cantidad de destinos para la provincia escojida
         $sum = 0;
         foreach ($principal as $item) {
             if($item['tn_provincia'] == $provincia){
                 $sum ++;
             }
         }
-        
+
+        //inicializamos la matriz de frecuencias
         for($i = 0; $i < $sum; $i++){
             for($x = 0; $x < 3; $x++){
                 $matriz[$i][$x] = 0;
             }
         }
 
-        //for($i = 0; $i < $totalClases; $i++){
         $nuevos = [];
         $i = 0;
+        //se recorre la lista de todos los destinos
         foreach ($principal as $item) {
+            //se determinan solo los destinos de la provincia
             if($item[10] == $provincia){
                 if($item[8] == $tipoTurista){
                     $matriz[$i][0]++;
@@ -263,25 +266,26 @@ class IndexModel {
                     $matriz[$i][1]++;
                 }
                 $matriz[$i][2]++; 
+                //se guardan solo los destinos de la provincia
                 $nuevos[$i] = $item;
                 $i++;
             }
         }
-            //print_r($nuevos);
-        //}
         
+        //se obtinen la probabilidades de las frecuencias
         for($i = 0; $i < $sum; $i++){
             for($x = 0; $x < 3; $x++){
                 $matriz[$i][$x] = ($matriz[$i][$x] + $m * $probsCarac[$x]) / ($totalClases + $m);
             }
         }
 
+        //se obtienen los productos de las probabilidades
         $productos = array();
-
         for($i = 0; $i < $sum; $i++ ){
             $productos[] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2] * $pClases;
         }
 
+        //se ordenan los destinos de acuerdo a los productos de mayor a menor
         return $this->ordenar($productos, $nuevos);
     }
 
