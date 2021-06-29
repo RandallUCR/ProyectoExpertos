@@ -42,8 +42,8 @@ class IndexModel {
         return $resultado;
     }
 
-    public function mostrar_destinos_turisticos_by_turismo($tipo) {
-        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos_by_turismo(".$tipo.");");
+    public function mostrar_destinos_turisticos_by_turismo($tipo, $provincia) {
+        $consulta = $this->db->prepare("CALL sp_obtener_destinos_turisticos_by_turismo(".$tipo.", ".$provincia.");");
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         $consulta->closeCursor();
@@ -169,8 +169,9 @@ class IndexModel {
 
         //probabilidad de elementos por clase (clase/total)
         $pMontanna = $tMontanna/$totalClases;
-        $tPlaya = $tPlaya/$totalClases;
-        $tCultura = $tCultura/$totalClases;
+        $pPlaya = $tPlaya/$totalClases;
+        $pCultura = $tCultura/$totalClases;
+        $pClases = array($pMontanna, $pPlaya, $pCultura);
 
         //obtenemos los criterios de los destinos
         $data['criterios_destinos'] = $this->lista_criterios_destinos();
@@ -212,18 +213,20 @@ class IndexModel {
         $classaux = [1,2,3];
 
         for($i = 0; $i < 3; $i++ ){
-            $productos[$i] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2];
+            $productos[$i] = $matriz[$i][0] * $matriz[$i][1] * $matriz[$i][2] * $pClases[$i];
         }
 
         $resultadoUno = $this->ordenar($productos, $classaux);
+        //print_r($productos);
+        //print_r($resultadoUno);
         return $this->bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$resultadoUno[0]);
     }
 
     //Srgunda instancia de Bayes, aqui se repite el procedimiento pero esta vez se evaluan los destinos mas recomendados segun los criterios_destinos
     //de la persona y tomando en cuenta el tipo de turismo sacado del paso anterior bayes()
     public function bayesDestinos($tipoTurista, $tipoPrecio, $provincia,$tipo_turismo){
-        $principal = $this->mostrar_destinos_turisticos_by_turismo($tipo_turismo);
-
+        $principal = $this->mostrar_destinos_turisticos_by_turismo($tipo_turismo, $provincia);
+        //echo $tipo_turismo . '|';
         $m = 3;
         //contar cantidad de elementos diferentes por característica(turista, precio, provincia)
         $qTipoTurista = 3;
@@ -245,15 +248,15 @@ class IndexModel {
 
         for($i = 0; $i < $totalClases; $i++){
             foreach ($principal as $item) {
-                    if($item[8] == $tipoTurista){
-                        $matriz[$i][0]++;
-                    }
-                    if($item[9] == $tipoPrecio){
-                        $matriz[$i][1]++;
-                    }
-                    if($item[10] == $provincia){
-                        $matriz[$i][2]++;
-                    }
+                if($item[8] == $tipoTurista){
+                    $matriz[$i][0]++;
+                }
+                if($item[9] == $tipoPrecio){
+                    $matriz[$i][1]++;
+                }
+                if($item[10] == $provincia){
+                    $matriz[$i][2]++;
+                }
             }
         }
 
@@ -272,26 +275,20 @@ class IndexModel {
         return $this->ordenar($productos, $principal);
     }
 
-//Metodo burbuja de ordenamiento
+    //Metodo burbuja de ordenamiento
     public function ordenar($array1, $array2){
       do{
-  $swapped = false;
-  for( $i = 0, $c = count( $array1 ) - 1; $i < $c; $i++ )
-  {
-    if( $array1[$i] < $array1[$i + 1] )
-    {
-      list( $array1[$i + 1], $array1[$i] ) =
-          array( $array1[$i], $array1[$i + 1] );
-
-          list( $array2[$i + 1], $array2[$i] ) =
-              array( $array2[$i], $array2[$i + 1] );
-      $swapped = true;
-    }
-  }
-}
-while( $swapped );
-
-  return $array2;
+          $swapped = false;
+          for( $i = 0, $c = count( $array1 ) - 1; $i < $c; $i++ ){
+              if( $array1[$i] < $array1[$i + 1] ){
+                  list( $array1[$i + 1], $array1[$i] ) = array( $array1[$i], $array1[$i + 1] );
+                  list( $array2[$i + 1], $array2[$i] ) = array( $array2[$i], $array2[$i + 1] );
+                  $swapped = true;
+                }
+            }
+        }
+        while( $swapped );
+        return $array2;
     }
 
     public function cantidad_tipo_turismo($tipo) {
